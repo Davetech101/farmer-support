@@ -21,28 +21,33 @@ const Header = () => {
 
   return (
     <>
-     {/* <header className="flex justify-between items-center px-24 py-10 bg-black text-white">
-         <Link href="/" className="flex items-center text-4xl">
-        <FaInfinity color="#008148" /> Farminsight
-      </Link>
+      <header className="flex justify-between items-center px-24 py-10 bg-black text-white hidden md:flex">
+        <Link href="/" className="flex items-center text-4xl">
+          <FaInfinity color="#008148" /> Farminsight
+        </Link>
 
-      <ul className="flex gap-10 lg:gap-3">
-        {links.map((link) => (
-          <li key={link.name}>
-            <Link href={link.href} className="text-2xl p-3 font-extralight border-b border-r border-black hover:border-white">{link.name}</Link>
-          </li>
-        ))}
-      </ul>
+        <ul className="flex gap-10 lg:gap-3">
+          {links.map((link) => (
+            <li key={link.name}>
+              <Link
+                href={link.href}
+                className="text-2xl p-3 font-extralight border-b border-r border-black hover:border-white"
+              >
+                {link.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-      <div className="flex items center gap-10 text-2xl font-extralight">
-        <button>
-          <IoMdSunny />
-        </button>
-
-        <Link href="" className="">Login to start</Link>
-      </div> 
-      </header>*/}
-      <HeaderMobile />
+        <div className="flex items center gap-10 text-2xl font-extralight">
+          <Link href="" className="border-b hover:border-secondaryColor">
+            Login to start
+          </Link>
+        </div>
+      </header>
+      <div className="md:hidden block">
+        <HeaderMobile />
+      </div>
     </>
   );
 };
