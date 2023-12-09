@@ -15,8 +15,10 @@ const config: Config = {
       },
 
       colors: {
-        primaryColor: "#00000075",
-        secondaryColor: "#034732"
+        primaryColor: "black",
+        secondaryColor: "#fff",
+        tetiaryColor: "#034732",
+        black1: "#00000075",
       }
     },
   },
