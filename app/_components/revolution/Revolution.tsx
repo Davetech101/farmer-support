@@ -22,10 +22,9 @@ const Revolution = () => {
         Revolutionising Agricultultre
       </h1>
 
-      <div className="pt-10 flex gap-10">
-        <div className="hidden lg:block bg-[url('/_assets/rev.jpg')] relative  w-full h-auto bg-no-repeat bg-bottom bg-cover">
+      <div className="pt-10 flex flex-col-reverse lg:flex-row gap-10">
+        <div className=" lg:block bg-[url('/_assets/rev.jpg')] relative  w-full h-80 lg:h-auto bg-no-repeat bg-bottom bg-cover">
           <div className="absolute top-0 left-0 w-full h-full bg-black1"></div>
-          
         </div>
 
         <div className="lg:w-9/12 bg-[url('/_assets/vector.png')] bg-no-repeat bg-contain bg-bottom bg-center">
