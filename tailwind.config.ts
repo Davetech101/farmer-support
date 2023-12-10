@@ -19,6 +19,7 @@ const config: Config = {
         secondaryColor: "#fff",
         tetiaryColor: "#034732",
         black1: "#00000075",
+        borderColor: "#ffffff5e",
       }
     },
   },
