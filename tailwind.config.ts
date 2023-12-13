@@ -20,6 +20,7 @@ const config: Config = {
         tetiaryColor: "#034732",
         black1: "#00000075",
         borderColor: "#ffffff5e",
+        primaryGrey: "rgb(255 255 255 / 12%)"
       }
     },
   },
