@@ -17,7 +17,7 @@ const Revolution = () => {
   ];
 
   return (
-    <section className="bg-primaryColor text-white px-10 xl:px-32 lg:py-32 py-24 text-white">
+    <section className="bg-primaryColor px-10 xl:px-32 lg:py-32 py-24 text-white">
       <h1 className="text-5xl lg:text-7xl border-b border-borderColor pb-10">
         Revolutionising Agricultultre
       </h1>
