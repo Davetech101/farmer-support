@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { TbWorldLongitude } from "react-icons/tb";
 import { TbWorldLatitude } from "react-icons/tb";
 
 const Weather = () => {
   const [weather, setWeather] = useState({});
+  const [longLat, setLongLat] = useState({longitude: "", latitude: ""});
 
   const inputContStyles = "flex flex-col gap-3 mb-6";
   const labelStyles = "text-xl flex items-center gap-3";
@@ -34,6 +35,16 @@ const Weather = () => {
     fetchWeather();
   }, []);
 
+  const onChangeHandler = useCallback((e: { target: any }) => {
+    setLongLat((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    console.log(longLat);
+    
+  }, [longLat]);
+
+  const submitHandler = useCallback((e: { preventDefault: () => void }) => {
+    e.preventDefault();
+  }, []);
+
   console.log(weather);
 
   return (
@@ -51,7 +62,7 @@ const Weather = () => {
 
       <div className="">
         <h4 className="text-2xl mb-4">Get Your Forecast</h4>
-        <form className="">
+        <form className="" onSubmit={submitHandler}>
           <div className={inputContStyles}>
             <label htmlFor="longitude" className={labelStyles}>
               Longitude{" "}
@@ -61,6 +72,8 @@ const Weather = () => {
               type="number"
               name="longitude"
               id="longitude"
+              required
+              onChange={onChangeHandler}
               className={inputStyles}
             />
           </div>
@@ -74,6 +87,8 @@ const Weather = () => {
               type="number"
               name="latitude"
               id="latitude"
+              required
+              onChange={onChangeHandler}
               className={inputStyles}
             />
           </div>
