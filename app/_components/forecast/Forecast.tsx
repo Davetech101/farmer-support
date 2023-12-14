@@ -4,7 +4,7 @@ import Weather from "./Weather";
 const Forecast = () => {
   return (
     <section className="bg-primaryColor px-10 xl:px-32 lg:py-32 text-white md:flex">
-      <div className="mb-8 w-2/4">
+      <div className="mb-8 md:w-2/4">
         <h1 className="text-4xl sm:5xl lg:text-7xl mb-6">Make informed Decisions</h1>
         <p className="text-lg sm:text-2xl font-thin">
           provides farmers with a comprehensive toolset to protect their crops
