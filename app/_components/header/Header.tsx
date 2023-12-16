@@ -20,7 +20,7 @@ const Header = () => {
   ];
 
   return (
-    <main className="fixed top-0 left-0 right-0">
+    <main className="fixed top-0 left-0 right-0 z-50 shadow-tetiaryColor shadow-sm">
       <header className="flex justify-between items-center px-24 py-10 bg-black text-white hidden md:flex">
         <Link href="/" className="flex items-center text-4xl">
           <FaInfinity color="#008148" /> Farminsight
@@ -31,7 +31,7 @@ const Header = () => {
             <li key={link.name}>
               <Link
                 href={link.href}
-                className="text-2xl p-3 font-extralight border-b border-r border-black hover:border-white"
+                className="text-2xl p-3 font-extralight border-b border-black border-t hover:border-tetiaryColor"
               >
                 {link.name}
               </Link>

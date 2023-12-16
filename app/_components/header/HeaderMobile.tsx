@@ -43,7 +43,7 @@ const HeaderMobile = () => {
           onClick={() => setShowNav(false)}
         ></div>
         <div
-          className={`absolute bg-black top-0 right-0 w-3/4 h-2/4 py-20 px-14 rounded-es-3xl transition-all ${
+          className={`absolute bg-black top-0 right-0 w-4/4 h-2/4 py-20 px-14 rounded-es-3xl transition-all ${
             showNav
               ? `translate-y-0 translate-x-0`
               : `-translate-y-96 translate-x-96`

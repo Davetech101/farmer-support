@@ -23,7 +23,7 @@ const Revolution = () => {
       </h1>
 
       <div className="pt-10 flex flex-col-reverse lg:flex-row gap-10">
-        <div className=" lg:block bg-[url('/_assets/rev.jpg')] relative  w-full h-80 lg:h-auto bg-no-repeat bg-bottom bg-cover">
+        <div className="z-10 lg:block bg-[url('/_assets/rev.jpg')] relative  w-full h-80 lg:h-auto bg-no-repeat bg-bottom bg-cover">
           <div className="absolute top-0 left-0 w-full h-full bg-black1"></div>
         </div>
 
