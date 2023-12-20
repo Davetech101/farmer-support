@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { CiLock } from "react-icons/ci";
 import { CiLogin } from "react-icons/ci";
@@ -11,9 +12,16 @@ export default function Home() {
 
   return (
     <>
-      <section className="bg-tetiaryColor w-screen h-screen p-10 flex items-center justify-center">
-        <div className=""></div>
-        <div className="bg-gradGreen rounded p-10">
+      <section className="bg-tetiaryColor w-screen h-screen p-10 flex items-center justify-center lg:gap-24">
+        <div className="hidden lg:block">
+        <Image
+          src="/_assets/signup-img.webp"
+          alt="vector"
+          width={500}
+          height={500}
+        />
+        </div>
+        <div className="bg-gradGreen rounded p-10 lg:w-4/12">
           <h2 className="text-secondaryColor text-3xl text-center mb-10">
             Create your account for personalized farming insights
           </h2>
