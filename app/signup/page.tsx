@@ -1,22 +1,61 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import { MdOutlineAlternateEmail, MdOutlinePermIdentity } from "react-icons/md";
 import { CiLocationOn, CiLock, CiLogin } from "react-icons/ci";
 import { LocationSearchInput } from './Location';
 
+interface InputProps {
+  onChange: any,
+  type: string,
+  name: string,
+  id: string,
+  className: any,
+  placeHolder: string
+}
+
+const Input = ({
+  onChange,
+  type,
+  name,
+  id,
+  className,
+  placeHolder,
+}: InputProps) =>  {
+  return <input
+  onChange={onChange}
+  type={type}
+  name={name}
+  id={id}
+  className={className}
+  placeholder={placeHolder}
+/>
+}
+
 export default function Home() {
+  const [latLng, setLatLng] = useState<{lat: number, lng: number} | null>();
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  })
+
   const inputStyle =
     "bg-secondaryColor mb-3 w-full border border-borderColor focus:outline-tetiaryColor outline-none pl-12 p-3 rounded text-2xl";
 
   const svgStyles = "absolute  text-2xl left-[6px] top-[11px] z-10";
+  
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [latLng, setLatLng] = useState<{lat: number, lng: number} | null>();
-
+  const handleChange = useCallback(
+    (e: { target: { id: any; value: any; }; }) => {
+      setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+      console.log(formData);
+    },
+    [formData]
+  );
 
   const handleSignUp = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
@@ -27,7 +66,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        // body: JSON.stringify({formData.firstName, formData.lastName, formData.email, formData?.password }),
       });
 
       if (response.ok) {
@@ -41,7 +80,6 @@ export default function Home() {
       alert('Error registering user');
     }
   };
-
 
   return (
     <>
@@ -62,44 +100,20 @@ export default function Home() {
           <div className="flex gap-3">
             <div className="relative">
               <MdOutlinePermIdentity className={svgStyles} />
-              <input
-                type="name"
-                name=""
-                id=""
-                className={inputStyle}
-                placeholder="First Name"
-              />
+              <Input type={'name'} name={'firstName'} id={'firstName'} placeHolder={'First Name'} onChange={handleChange} className={inputStyle}/>
             </div>
             <div className="relative">
               <MdOutlinePermIdentity className={svgStyles} />
-              <input
-                type="name"
-                name=""
-                id=""
-                className={inputStyle}
-                placeholder="Last Name"
-              />
+              <Input type={'name'} name={'lastName'} id={'lastName'} placeHolder={'Last Name'} onChange={handleChange} className={inputStyle}/>
             </div>
           </div>
             <div className="relative">
               <MdOutlineAlternateEmail className={svgStyles} />
-              <input
-                type="email"
-                name=""
-                id=""
-                className={inputStyle}
-                placeholder="Email"
-              />
+              <Input type={'email'} name={'email'} id={'email'} placeHolder={'email'} onChange={handleChange} className={inputStyle}/>
             </div>
             <div className="relative">
               <CiLock className={svgStyles} />
-              <input
-                type="password"
-                name=""
-                id=""
-                className={inputStyle}
-                placeholder="Password"
-              />
+              <Input type={'password'} name={'password'} id={'password'} placeHolder={'Password'} onChange={handleChange} className={inputStyle}/>
             </div>
 
             <div className="relative">
