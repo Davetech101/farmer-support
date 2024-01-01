@@ -3,19 +3,20 @@
 import { useState } from 'react';
 import Link from "next/link";
 import Image from "next/image";
-import { MdOutlineAlternateEmail } from "react-icons/md";
-import { CiLocationOn } from "react-icons/ci";
-import { CiLock } from "react-icons/ci";
-import { CiLogin } from "react-icons/ci";
+import { MdOutlineAlternateEmail, MdOutlinePermIdentity } from "react-icons/md";
+import { CiLocationOn, CiLock, CiLogin } from "react-icons/ci";
+import { LocationSearchInput } from './Location';
 
 export default function Home() {
   const inputStyle =
     "bg-secondaryColor mb-3 w-full border border-borderColor focus:outline-tetiaryColor outline-none pl-12 p-3 rounded text-2xl";
 
-  const svgStyles = "absolute  text-2xl left-[6px] top-[11px]";
+  const svgStyles = "absolute  text-2xl left-[6px] top-[11px] z-10";
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [latLng, setLatLng] = useState<{lat: number, lng: number} | null>();
+
 
   const handleSignUp = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
@@ -26,7 +27,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (response.ok) {
@@ -58,6 +59,28 @@ export default function Home() {
             Create your account for personalized farming insights
           </h2>
           <form action="" onSubmit={handleSignUp} className="mb-10">
+          <div className="flex gap-3">
+            <div className="relative">
+              <MdOutlinePermIdentity className={svgStyles} />
+              <input
+                type="name"
+                name=""
+                id=""
+                className={inputStyle}
+                placeholder="First Name"
+              />
+            </div>
+            <div className="relative">
+              <MdOutlinePermIdentity className={svgStyles} />
+              <input
+                type="name"
+                name=""
+                id=""
+                className={inputStyle}
+                placeholder="Last Name"
+              />
+            </div>
+          </div>
             <div className="relative">
               <MdOutlineAlternateEmail className={svgStyles} />
               <input
@@ -65,7 +88,7 @@ export default function Home() {
                 name=""
                 id=""
                 className={inputStyle}
-                placeholder="Enter your Email address"
+                placeholder="Email"
               />
             </div>
             <div className="relative">
@@ -81,13 +104,7 @@ export default function Home() {
 
             <div className="relative">
               <CiLocationOn className={svgStyles} />
-              <input
-                type="text"
-                name=""
-                id=""
-                className={inputStyle}
-                placeholder="Location"
-              />
+              <LocationSearchInput updateLatLng={(latlng: typeof latLng) => setLatLng(latlng)} hasError={false}/>
             </div>
             <button className="w-full px-10 py-3 bg-gradRed text-secondaryColor rounded text-2xl">Sign up</button>
           </form>
