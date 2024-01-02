@@ -4,6 +4,12 @@ import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import Image from "next/image";
+import { useRef } from 'react'
+import { useAppSelector, useAppDispatch, useAppStore } from '../_redux/hooks'
+import {
+  updateNamesAndLocation,
+  updateEmailAndPassword,
+} from "../_redux/users"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MdOutlineAlternateEmail, MdOutlinePermIdentity } from "react-icons/md";
@@ -49,6 +55,8 @@ export default function Home() {
     password: "",
   })
 
+  const dispatch = useAppDispatch()
+
   const inputStyle =
     "bg-secondaryColor mb-3 w-full border border-borderColor focus:outline-tetiaryColor outline-none pl-12 p-3 rounded text-2xl";
 
@@ -63,8 +71,17 @@ export default function Home() {
     [formData]
   );
 
-  const handleSignUp = async (e: { preventDefault: () => void; }) => {
+  // const updateLatLng = (latLng: any) => {
+  //   setFormData({
+  //     ...formData,
+  //     location: latLng,
+  //   });
+  // };
+  
+  const handleSignUp = useCallback(async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+    console.log(latLng,)
+    // return 
     
     try {
       const response = await fetch('https://farminsights-staging.onrender.com/api/v1/users/', {
@@ -76,10 +93,13 @@ export default function Home() {
       });
       const data = await response.json()
       console.log(data, "here")
+      
+      console.log(data);
 
       if (response.ok) {
         toast.success('User registered successfully!')
-        router.push("/dashboard")
+      dispatch(updateNamesAndLocation(data.user ));
+        router.push("/")
       } else {
         const data = await response.json();
         toast.error(`Error: ${data.error}`);
@@ -88,7 +108,7 @@ export default function Home() {
       console.error(error);
       toast.error('Error registering user');
     }
-  };
+  }, [dispatch, formData, latLng, router])
 
   return (
     <>
