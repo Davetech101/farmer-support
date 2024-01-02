@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import Image from "next/image";
 import { MdOutlineAlternateEmail, MdOutlinePermIdentity } from "react-icons/md";
@@ -35,6 +36,9 @@ const Input = ({
 }
 
 export default function Home() {
+
+  const router = useRouter()
+  
   const [latLng, setLatLng] = useState<{lat: number, lng: number} | null>();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -59,18 +63,21 @@ export default function Home() {
 
   const handleSignUp = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-
+    
     try {
-      const response = await fetch('https://farminsights-staging.onrender.com/signup', {
+      const response = await fetch('https://farminsights-staging.onrender.com/api/v1/users/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        // body: JSON.stringify({formData.firstName, formData.lastName, formData.email, formData?.password }),
+        body: JSON.stringify({...formData, latitude: latLng?.lat, longitude: latLng?.lng }),
       });
+      const data = await response.json()
+      console.log(data, "here")
 
       if (response.ok) {
         alert('User registered successfully');
+        router.push("/")
       } else {
         const data = await response.json();
         alert(`Error: ${data.error}`);
