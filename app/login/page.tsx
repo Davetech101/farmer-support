@@ -10,7 +10,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdOutlineAlternateEmail, MdOutlinePermIdentity } from "react-icons/md";
 import { CiLocationOn, CiLock, CiLogin } from "react-icons/ci";
-import { LocationSearchInput } from "./Location";
 
 interface InputProps {
   onChange: any;
@@ -45,15 +44,10 @@ const Input = ({
 export default function Home() {
   const router = useRouter();
 
-  const [latLng, setLatLng] = useState<{ lat: number; lng: number } | null>();
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
   });
-
-  const dispatch = useAppDispatch();
 
   const inputStyle =
     "bg-secondaryColor mb-3 w-full border border-borderColor focus:outline-tetiaryColor outline-none pl-12 p-3 rounded text-2xl";
@@ -64,42 +58,35 @@ export default function Home() {
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   }, []);
 
-  const handleSignUp = useCallback(
+  const handleLogin = useCallback(
     async (e: { preventDefault: () => void }) => {
       e.preventDefault();
-
       try {
         const response = await fetch(
-          "https://farminsights-staging.onrender.com/api/v1/users/",
+          "https://farminsights-staging.onrender.com/api/v1/users/login",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              ...formData,
-              latitude: latLng?.lat,
-              longitude: latLng?.lng,
-            }),
+            body: JSON.stringify({ ...formData }),
           }
         );
         const data = await response.json();
         console.log(data);
-
-        if (response.ok) {
+        console.log(data.status);
+        if (data.status === 200) {
           toast.success("User registered successfully!");
-          dispatch(updateNamesAndLocation(data.user));
-          localStorage.setItem("token", data.token);
           router.push("/dashboard");
-        } else {
-          toast.error(`Error: ${data.message}`);
+          console.log("Login successful!");
+        } else if (data.status !== 200) {
+          toast.error(`${data.message}`);
         }
       } catch (error) {
-        console.error(error);
-        toast.error("Error registering user");
+        toast.error("Error signing user in");
       }
     },
-    [dispatch, formData, latLng, router]
+    [formData, router]
   );
 
   return (
@@ -114,35 +101,11 @@ export default function Home() {
             height={500}
           />
         </div>
-        <div className="bg-gradGreen rounded p-10 lg:w-4/12">
+        <div className="bg-gradGreen rounded p-10 lg:w-4/12 w-full max-w-3xl">
           <h2 className="text-secondaryColor text-3xl text-center mb-10">
-            Create your account for personalized farming insights
+            Great to see you again!
           </h2>
-          <form action="" onSubmit={handleSignUp} className="mb-10">
-            <div className="flex gap-3 justify-between">
-              <div className="relative">
-                <MdOutlinePermIdentity className={svgStyles} />
-                <Input
-                  type={"name"}
-                  name={"firstName"}
-                  id={"firstName"}
-                  placeHolder={"First Name"}
-                  onChange={handleChange}
-                  className={inputStyle}
-                />
-              </div>
-              <div className="relative">
-                <MdOutlinePermIdentity className={svgStyles} />
-                <Input
-                  type={"name"}
-                  name={"lastName"}
-                  id={"lastName"}
-                  placeHolder={"Last Name"}
-                  onChange={handleChange}
-                  className={inputStyle}
-                />
-              </div>
-            </div>
+          <form action="" onSubmit={handleLogin} className="mb-10">
             <div className="relative">
               <MdOutlineAlternateEmail className={svgStyles} />
               <Input
@@ -165,25 +128,17 @@ export default function Home() {
                 className={inputStyle}
               />
             </div>
-
-            <div className="relative">
-              <CiLocationOn className={svgStyles} />
-              <LocationSearchInput
-                updateLatLng={(latlng: typeof latLng) => setLatLng(latlng)}
-                hasError={false}
-              />
-            </div>
             <button className="w-full px-10 py-3 bg-gradRed text-secondaryColor rounded text-2xl">
-              Sign up
+              Login
             </button>
           </form>
           <p className="text-center text-secondaryColor text-xl">
-            Already have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="login"
               className="text-gradRed text-2xl font-bold inline-flex items-center hover:scale-90"
             >
-              Sign In <CiLogin />
+              Sign Up <CiLogin />
             </Link>
           </p>
         </div>
