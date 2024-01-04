@@ -40,7 +40,7 @@ const Header = () => {
         </ul>
 
         <div className="flex items center gap-10 text-2xl font-extralight">
-          <Link href="" className="border-b hover:border-tetiaryColor">
+          <Link href="login" className="border-b hover:border-tetiaryColor">
             Login to start
           </Link>
         </div>

@@ -44,6 +44,7 @@ const Input = ({
 export default function Home() {
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -61,6 +62,7 @@ export default function Home() {
   const handleLogin = useCallback(
     async (e: { preventDefault: () => void }) => {
       e.preventDefault();
+      setLoading(true);
       try {
         const response = await fetch(
           "https://farminsights-staging.onrender.com/api/v1/users/login",
@@ -82,9 +84,11 @@ export default function Home() {
         } else if (data.status !== 200) {
           toast.error(`${data.message}`);
         }
-      } catch (error) {
+      } catch (error: any) {
+        toast.error(error.message)
         toast.error("Error signing user in");
       }
+      setLoading(false);
     },
     [formData, router]
   );
@@ -93,6 +97,7 @@ export default function Home() {
     <>
       <section className="bg-tetiaryColor w-screen h-screen p-10 flex items-center justify-center lg:gap-24">
         <ToastContainer />
+
         <div className="hidden lg:block">
           <Image
             src="/_assets/signup-img.webp"
@@ -129,13 +134,13 @@ export default function Home() {
               />
             </div>
             <button className="w-full px-10 py-3 bg-gradRed text-secondaryColor rounded text-2xl">
-              Login
+            {loading ? "Logging In..." : "Login"}
             </button>
           </form>
           <p className="text-center text-secondaryColor text-xl">
             Don&apos;t have an account?{" "}
             <Link
-              href="login"
+              href="signup"
               className="text-gradRed text-2xl font-bold inline-flex items-center hover:scale-90"
             >
               Sign Up <CiLogin />

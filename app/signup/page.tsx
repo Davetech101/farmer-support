@@ -17,6 +17,7 @@ interface InputProps {
   type: string;
   name: string;
   id: string;
+  minlength: number;
   className: any;
   placeHolder: string;
 }
@@ -26,6 +27,7 @@ const Input = ({
   type,
   name,
   id,
+  minlength,
   className,
   placeHolder,
 }: InputProps) => {
@@ -35,6 +37,7 @@ const Input = ({
       type={type}
       name={name}
       id={id}
+      minLength={minlength}
       className={className}
       placeholder={placeHolder}
       required
@@ -45,6 +48,8 @@ const Input = ({
 export default function Home() {
   const router = useRouter();
 
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [latLng, setLatLng] = useState<{ lat: number; lng: number } | null>();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -67,7 +72,7 @@ export default function Home() {
   const handleSignUp = useCallback(
     async (e: { preventDefault: () => void }) => {
       e.preventDefault();
-
+      setLoading(true);
       try {
         const response = await fetch(
           "https://farminsights-staging.onrender.com/api/v1/users/",
@@ -84,7 +89,6 @@ export default function Home() {
           }
         );
         const data = await response.json();
-        console.log(data);
 
         if (response.ok) {
           toast.success("User registered successfully!");
@@ -94,10 +98,11 @@ export default function Home() {
         } else {
           toast.error(`Error: ${data.message}`);
         }
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        setError(JSON.stringify(error))
         toast.error("Error registering user");
       }
+      setLoading(false);
     },
     [dispatch, formData, latLng, router]
   );
@@ -115,6 +120,7 @@ export default function Home() {
           />
         </div>
         <div className="bg-gradGreen rounded p-10 lg:w-4/12">
+          {error}
           <h2 className="text-secondaryColor text-3xl text-center mb-10">
             Create your account for personalized farming insights
           </h2>
@@ -129,6 +135,7 @@ export default function Home() {
                   placeHolder={"First Name"}
                   onChange={handleChange}
                   className={inputStyle}
+                  minlength={0}
                 />
               </div>
               <div className="relative">
@@ -140,6 +147,7 @@ export default function Home() {
                   placeHolder={"Last Name"}
                   onChange={handleChange}
                   className={inputStyle}
+                  minlength={0}
                 />
               </div>
             </div>
@@ -152,6 +160,7 @@ export default function Home() {
                 placeHolder={"email"}
                 onChange={handleChange}
                 className={inputStyle}
+                minlength={0}
               />
             </div>
             <div className="relative">
@@ -163,6 +172,7 @@ export default function Home() {
                 placeHolder={"Password"}
                 onChange={handleChange}
                 className={inputStyle}
+                minlength={4}
               />
             </div>
 
@@ -174,7 +184,7 @@ export default function Home() {
               />
             </div>
             <button className="w-full px-10 py-3 bg-gradRed text-secondaryColor rounded text-2xl">
-              Sign up
+              {loading ? "Signing up..." : "Sign up"}
             </button>
           </form>
           <p className="text-center text-secondaryColor text-xl">
