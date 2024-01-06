@@ -1,8 +1,9 @@
+import Dashboard from "./Dashboard";
 
 export default function Home() {
   return (
     <>
-      <button>logout</button>
+      <Dashboard/>
     </>
   )
 }
