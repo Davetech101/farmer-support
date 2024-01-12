@@ -7,19 +7,20 @@ import { TiWeatherPartlySunny } from "react-icons/ti";
 import { SiHtmlacademy } from "react-icons/si";
 import { CgInsights } from "react-icons/cg";
 
-const sampleQuestions = [
-  "User-friendly AI interfaces for farmers",
-  "What are effective pest control strategies for tomatoes",
-  "Best methods for soil nutrient management and enrichment",
-];
-
 const Dashboard = () => {
   // const [first, setfirst] = useState(second)
+  const [sampleQ, setSampleQ] = useState("")
   const [toggleFeature, setToggleFeature] = useState(false);
   const [searchType, setSearchType] = useState("Deep dive");
   const [searchIcon, setSearchIcon] = useState(
     <IoSearch className="text-4xl" />
   );
+
+  const sampleQuestions = [
+    "User-friendly AI interfaces for farmers",
+    "What are effective pest control strategies for tomatoes",
+    "Best methods for soil nutrient management and enrichment",
+  ];
 
   const features = [
     {
@@ -44,13 +45,14 @@ const Dashboard = () => {
   return (
     <section className="flex justify-center items-center flex-col h-screen bg-primaryColor text-secondaryColor text-center p-8">
       <h2 className="text-5xl mb-10 text-[#718096]">Welcome to farm Insight</h2>
-
+{/* {sampleQ} */}
       <div className="border border-borderColor rounded-lg h-[15rem] w-full h-24 relative mb-10">
         <textarea
           name=""
           id=""
           className="w-full  text-2xl placeholder:text-2xl border-none text-primaryColor h-full p-10 outline-tetiaryColor"
           placeholder="Ask anything"
+          // value={"sasda"}
         ></textarea>
 
         <div className="absolute bottom-[10px] px-[18px] text-2xl w-full flex items-center justify-between text-[#718096]">
@@ -92,9 +94,19 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <p className="">
+      <div className="flex flex-col items-center">
+      <p className="flex items-center text-2xl gap-[10px] mb-[10px]">
         Sample questions to ask <FaPlay />
       </p>
+
+      <div className="flex flex-wrap items-center justify-center gap-[10px]">
+        {sampleQuestions.map((q, idx, arr) => (
+          <button className="text-[12px] underline text-[#D3D3D3]" key={idx} onClick={() => setSampleQ(q)}>
+            {idx < arr.length - 1 ? `${q},` : q}
+          </button>
+        ))}
+      </div>
+      </div>
     </section>
   );
 };
