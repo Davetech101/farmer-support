@@ -1,11 +1,14 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { IoSearch } from "react-icons/io5";
 import { FaPlay } from "react-icons/fa";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { SiHtmlacademy } from "react-icons/si";
 import { CgInsights } from "react-icons/cg";
+import { io } from "socket.io-client";
+// import { socket } from "../socket";
+const URL = "http://192.168.0.119:3000/messages";
 
 const Dashboard = () => {
   // const [first, setfirst] = useState(second)
@@ -15,6 +18,25 @@ const Dashboard = () => {
   const [searchIcon, setSearchIcon] = useState(
     <IoSearch className="text-4xl" />
   );
+  const [token, setToken] = useState<string | null>(null)
+  const socket = useMemo(() => io(URL, {
+    auth: {
+      token,
+    },
+    reconnection: true,
+  }), [token])
+
+  useEffect(() => {
+    setToken(localStorage.getItem("token"))
+  }, [])
+
+  useEffect(() => {
+    console.log(socket);
+    console.log("here")
+    // socket.onAny((...d) => {
+    //   console.log(d)
+    // })
+  }, [socket])
 
   const sampleQuestions = [
     "User-friendly AI interfaces for farmers",
@@ -45,7 +67,10 @@ const Dashboard = () => {
   return (
     <section className="flex justify-center items-center flex-col h-screen bg-primaryColor text-secondaryColor text-center p-8">
       <div className="flex justify-center items-center flex-col md:max-w-5xl">
-        <h2 className="text-5xl mb-10 text-[#718096] md:text-[4rem]">
+        <h2 className="text-5xl mb-10 text-[#718096] md:text-[4rem]" onClick={() => {
+          socket.emit("new", {})
+          console.log("so")
+          }}>
           Welcome to farm Insight
         </h2>
 
