@@ -44,7 +44,7 @@ const Dashboard = () => {
     "Best methods for soil nutrient management and enrichment",
   ];
 
-  const features = [
+  const deepDive = [
     {
       title: "Weather report",
       txt: "Get weather reports and history",
@@ -64,6 +64,11 @@ const Dashboard = () => {
     },
   ];
 
+  const handleSubmit = useCallback(async (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+    console.log(searchTxt)
+  }, [searchTxt])
+
   return (
     <section className="flex justify-center items-center flex-col h-screen bg-primaryColor text-secondaryColor text-center p-8">
       <div className="flex justify-center items-center flex-col md:max-w-5xl">
@@ -74,7 +79,7 @@ const Dashboard = () => {
           Welcome to farm Insight
         </h2>
 
-        <div className="border border-borderColor rounded-[2rem] h-[15rem] md:h-[20rem] w-full h-24 relative mb-10">
+        <form onSubmit={handleSubmit} className="border border-borderColor rounded-[2rem] h-[15rem] md:h-[20rem] w-full h-24 relative mb-10">
           <textarea
             name=""
             id=""
@@ -103,7 +108,7 @@ const Dashboard = () => {
                 : "h-[0] opacity-0 invisible transition-all"
             }  absolute transition-all top-[90%] text-left left-[30px] text-secondaryColor bg-primaryColor p-[10px]`}
           >
-            {features.map((feature, idx) => (
+            {deepDive.map((feature, idx) => (
               <div
                 className="flex gap-[10px] mb-[10px]"
                 key={idx}
@@ -121,7 +126,7 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
-        </div>
+        </form>
 
         <div className="flex flex-col items-center">
           <p className="flex items-center text-2xl gap-[10px] mb-[10px] md:text-[20px]">
