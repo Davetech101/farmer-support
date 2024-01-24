@@ -8,7 +8,7 @@ import { SiHtmlacademy } from "react-icons/si";
 import { CgInsights } from "react-icons/cg";
 import { io } from "socket.io-client";
 // import { socket } from "../socket";
-const URL = "http://192.168.0.119:3000/messages";
+const URL = "https://farminsights-staging.onrender.com/api/v1/messages";
 
 const Dashboard = () => {
   // const [first, setfirst] = useState(second)
@@ -44,7 +44,7 @@ const Dashboard = () => {
     "Best methods for soil nutrient management and enrichment",
   ];
 
-  const deepDive = [
+  const features = [
     {
       title: "Weather report",
       txt: "Get weather reports and history",
@@ -108,7 +108,7 @@ const Dashboard = () => {
                 : "h-[0] opacity-0 invisible transition-all"
             }  absolute transition-all top-[90%] text-left left-[30px] text-secondaryColor bg-primaryColor p-[10px]`}
           >
-            {deepDive.map((feature, idx) => (
+            {features.map((feature, idx) => (
               <div
                 className="flex gap-[10px] mb-[10px]"
                 key={idx}
