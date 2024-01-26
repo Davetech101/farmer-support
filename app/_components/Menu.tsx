@@ -1,5 +1,6 @@
+"use client";
+import React, { useState } from "react";
 import Link from 'next/link'
-import React from 'react'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdDashboard } from "react-icons/md";
 import { FaProductHunt } from "react-icons/fa";
@@ -9,6 +10,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { MdAddCircle } from "react-icons/md";
 
 const Menu = () => {
+  const [showNav, setShowNav] = useState(false);
 
   const linkStyles = "text-3xl mb-10 flex items-center gap-[10px]  p-[10px] rounded-ee-full rounded-se-full"
 
@@ -23,9 +25,9 @@ const Menu = () => {
       </header>
 
       <section className="w-screen absolute top-0 z-10">
-        <div className=""></div>
+        <div className="fixed z-0 right-0 top-0 h-screen w-[25%] bg-primaryGrey" onClick={() => setShowNav(false)}></div>
 
-        <div className="w-9/12 h-screen flex flex-col justify-between bg-tetiaryColor text-secondaryColor p-10">
+        <div className="w-[75%] h-screen flex flex-col justify-between bg-tetiaryColor text-secondaryColor p-10 z-10">
           <div className="flex flex-col">
             <Link href={"/"} className='text-3xl mb-10 flex items-center gap-[10px] bg-secondaryColor text-tetiaryColor p-[10px] rounded'><MdAddCircle /> New Chat</Link>
             <Link href={"/dashboard"} className={linkStyles}><MdDashboard/> Dashboard</Link>
