@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Link from 'next/link'
+import { useRouter } from "next/navigation"
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdDashboard } from "react-icons/md";
 import { FaProductHunt } from "react-icons/fa";
@@ -12,7 +13,17 @@ import { MdAddCircle } from "react-icons/md";
 const Menu = () => {
   const [showNav, setShowNav] = useState(false);
 
+  const router = useRouter()
+
   const linkStyles = "text-3xl mb-10 flex items-center gap-[10px]  p-[10px] rounded-ee-full rounded-se-full"
+
+  const handleLogout = useCallback(
+    () => {
+      router.push("/")
+    },
+    [router]
+  );
+
 
   return (
     <div className='fixed top-0 left-0 w-full left-0 z-10'>
@@ -25,7 +36,7 @@ const Menu = () => {
       </header>
 
       <section className={`w-screen absolute top-0 ${
-          showNav ? `z-100` : `z-0`
+          showNav ? `visible` : `invisible`
         }`}>
         <div className={`fixed z-0 right-0 top-0 h-screen w-[25%] bg-primaryGrey duration-1000 ${
             showNav
@@ -46,7 +57,7 @@ const Menu = () => {
             <Link href={"/listing"} className={linkStyles}><IoIosNotificationsOutline /> Notifications</Link>
           </div>
 
-          <button className="flex text-2xl items-center justify-between bg-secondaryColor text-tetiaryColor p-[10px] rounded w-full">Log out <IoIosLogOut /></button>
+          <button className="flex text-2xl items-center justify-between bg-secondaryColor text-tetiaryColor p-[10px] rounded w-full" onClick={handleLogout}>Log out <IoIosLogOut /></button>
         </div>
       </section>
     </div>
