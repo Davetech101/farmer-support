@@ -19,15 +19,25 @@ const Menu = () => {
       <header className="bg-primaryColor p-10 text-secondaryColor flex w-full justify-between items-center">
         <Link href={"/"} className='text-secondaryColor text-3xl z-0'>Home</Link>
 
-        <button className="text-4xl">
+        <button className="text-4xl"  onClick={() => setShowNav(true)}>
         <RxHamburgerMenu />
       </button>
       </header>
 
-      <section className="w-screen absolute top-0 z-10">
-        <div className="fixed z-0 right-0 top-0 h-screen w-[25%] bg-primaryGrey" onClick={() => setShowNav(false)}></div>
+      <section className={`w-screen absolute top-0 ${
+          showNav ? `z-100` : `z-0`
+        }`}>
+        <div className={`fixed z-0 right-0 top-0 h-screen w-[25%] bg-primaryGrey duration-1000 ${
+            showNav
+              ? `translate-x-0`
+              : `translate-x-full`
+          }`} onClick={() => setShowNav(false)}></div>
 
-        <div className="w-[75%] h-screen flex flex-col justify-between bg-tetiaryColor text-secondaryColor p-10 z-10">
+        <div className={`w-[75%] h-screen flex flex-col justify-between bg-tetiaryColor text-secondaryColor p-10 z-10 transition-all duration-1000  ${
+            showNav
+              ? `translate-x-0`
+              : `-translate-x-full`
+          }`}>
           <div className="flex flex-col">
             <Link href={"/"} className='text-3xl mb-10 flex items-center gap-[10px] bg-secondaryColor text-tetiaryColor p-[10px] rounded'><MdAddCircle /> New Chat</Link>
             <Link href={"/dashboard"} className={linkStyles}><MdDashboard/> Dashboard</Link>
