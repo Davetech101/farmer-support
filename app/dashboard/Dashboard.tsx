@@ -70,7 +70,7 @@ const Dashboard = () => {
   }, [searchTxt])
 
   return (
-    <section className="flex justify-center items-center flex-col h-screen bg-primaryColor text-secondaryColor text-center p-8">
+    <section className="flex justify-center items-center flex-col h-screen bg-secondaryColor text-secondaryColor text-center p-8">
       <div className="flex justify-center items-center flex-col md:max-w-5xl">
         <h2 className="text-5xl mb-10 text-[#718096] md:text-[4rem]" onClick={() => {
           socket.emit("new", {})
@@ -79,7 +79,8 @@ const Dashboard = () => {
           Welcome to farm Insight
         </h2>
 
-        <form onSubmit={handleSubmit} className="border border-borderColor rounded-[2rem] h-[15rem] md:h-[20rem] w-full h-24 relative mb-10">
+        <form onSubmit={handleSubmit} className="border border-[#718096]
+        bes rounded-[2rem] h-[15rem] md:h-[20rem] w-full h-24 relative mb-10">
           <textarea
             name=""
             id=""
@@ -136,7 +137,7 @@ const Dashboard = () => {
           <div className="flex flex-wrap items-center justify-center gap-[10px]">
             {sampleQuestions.map((q, idx, arr) => (
               <button
-                className="text-[12px] underline text-[#D3D3D3] md:text-[16px]"
+                className="text-[12px] underline text-tetiaryColor md:text-[16px]"
                 key={idx}
                 onClick={() => setSearchTxt(q)}
               >
