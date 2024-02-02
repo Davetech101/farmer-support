@@ -15,12 +15,13 @@ const config: Config = {
       },
 
       colors: {
-        primaryColor: "black",
+        primaryColor: "#151716",
+        black1: "#00000075",
+        black2:"black",
         secondaryColor: "#fff",
         tetiaryColor: "#034732",
         gradGreen: "#035B34",
         gradRed: "#FF6E6E",
-        black1: "#00000075",
         borderColor: "#ffffff5e",
         primaryGrey: "rgb(255 255 255 / 12%)"
       }
