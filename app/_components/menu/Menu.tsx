@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import { FaInfinity } from "react-icons/fa6";
 import { MdOutlineDashboard } from "react-icons/md";
@@ -9,11 +10,14 @@ import { usePathname } from "next/navigation";
 import { MdHistory } from "react-icons/md";
 import { IoIosLogOut } from "react-icons/io";
 import { RxAvatar } from "react-icons/rx";
-import { useState } from "react";
 
-const Menu = () => {
-  const [showMenu, setShowMenu] = useState(false)
-  
+interface ChildProps {
+  showMenu: boolean;
+  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Menu: React.FC<ChildProps> = ({ showMenu, setShowMenu }) => {
+
   const pathname = usePathname();
 
   const resQ = [
@@ -48,7 +52,7 @@ const Menu = () => {
 
   return (
     <div className="lg: w-screen">
-      <div className="fixed top-0 left-0 w-[70%] h-screen bg-primaryColor py-10 overflow">
+      <div className={`${showMenu ? "visible translate-x-[0px]" : "-translate-x-[1200px]"} transition-all fixed top-0 left-0 w-[70%] h-screen bg-primaryColor py-10 overflow`}>
         <Link
           href="/"
           className="flex items-center  justify-center text-4xl mb-[50px]"
@@ -95,7 +99,7 @@ const Menu = () => {
         </div>
       </div>
 
-      <div className="fixed top-0 right-0 h-screen w-[30%] bg-[#696969d4]"></div>
+      <div className={`${showMenu ? "visible translate-x-[0px]" : "translate-x-[1200px]"} fixed top-0 right-0 h-screen w-[30%] bg-[#696969d4]`}></div>
     </div>
   );
 };

@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Menu from "./Menu";
 import MenuDxtp from "./MenuDxtp";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -7,6 +9,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import Link from "next/link";
 
 const Layout = () => {
+  const [showMenu, setShowMenu] = useState<boolean>(false);
   return (
     <div className="bg-primaryColor text-secondaryColor">
       <header className="flex items-center justify-between p-10">
@@ -20,12 +23,12 @@ const Layout = () => {
             <CiSettings />
           </Link>
 
-          <button className="text-[2rem]">
+          <button className="text-[2rem]" onClick={()=> setShowMenu(true)}>
             <RxHamburgerMenu />
           </button>
         </div>
       </header>
-      <Menu />
+      <Menu showMenu={showMenu} setShowMenu={setShowMenu}/>
       <MenuDxtp />
     </div>
   );
