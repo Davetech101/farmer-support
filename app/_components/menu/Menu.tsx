@@ -51,7 +51,7 @@ const Menu: React.FC<ChildProps> = ({ showMenu, setShowMenu }) => {
   ];
 
   return (
-    <div className="lg: w-screen">
+    <div className="lg:hidden w-screen text-secondaryColor">
       <div className={`${showMenu ? "visible translate-x-[0px]" : "-translate-x-[1200px]"} transition-all fixed top-0 left-0 w-[70%] h-screen bg-primaryColor py-10 overflow`}>
         <Link
           href="/"
@@ -65,6 +65,7 @@ const Menu: React.FC<ChildProps> = ({ showMenu, setShowMenu }) => {
             <Link
               href={link.href}
               key={link.title}
+              onClick={()=> setShowMenu(false)}
               className={`${
                 pathname === link.href && "text-secondaryColor"
               } flex mb-6 items-center gap-[10px] text-3xl text-[#696969d4]`}
@@ -77,14 +78,14 @@ const Menu: React.FC<ChildProps> = ({ showMenu, setShowMenu }) => {
         </div>
 
         <div className="p-10">
-          <p className="flex items-center gap-[10px] text-2xl">
+          <p className="flex items-center gap-[10px] text-2xl sm:text-4xl">
             Recent Questions
             <MdHistory />
           </p>
 
           <div className="mt-6 bg-black2 p-4 rounded">
             {resQ.map((q, idx) => (
-              <p className="text-[10px] mb-2" key={idx}>
+              <p className="text-[10px] sm:text-2xl mb-2" key={idx}>
                 {q}
               </p>
             ))}
@@ -92,14 +93,14 @@ const Menu: React.FC<ChildProps> = ({ showMenu, setShowMenu }) => {
         </div>
 
         <div className="p-10 bg-black2">
-        <button className="text-2xl w-full flex items-center justify-between">
-        <div className="flex items-center gap-[10px]"><RxAvatar className="text-5xl" /> John Doe</div>
+        <button className="text-2xl sm:text-4xl w-full flex items-center justify-between">
+        <div className="flex items-center gap-[10px]"><RxAvatar className="text-5xl sm:text-6xl" /> John Doe</div>
           <IoIosLogOut />
         </button>
         </div>
       </div>
 
-      <div className={`${showMenu ? "visible translate-x-[0px]" : "translate-x-[1200px]"} fixed top-0 right-0 h-screen w-[30%] bg-[#696969d4]`}></div>
+      <div className={`${showMenu ? "visible translate-x-[0px]" : "translate-x-[1200px]"} fixed top-0 right-0 h-screen w-[30%] bg-[#696969d4] transition-all`} onClick={()=> setShowMenu(false)}></div>
     </div>
   );
 };
