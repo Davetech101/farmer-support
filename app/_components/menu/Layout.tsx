@@ -13,7 +13,6 @@ const Layout: React.FC<ChildProps> = ({ showMenu, setShowMenu }) => {
   return (
     <div className="w-[10px]">
       <Menu showMenu={showMenu} setShowMenu={setShowMenu}/>
-      <MenuDxtp />
     </div>
   );
 };

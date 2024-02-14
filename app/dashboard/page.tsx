@@ -12,8 +12,11 @@ export default function Home() {
   return (
     <>
       <MenuHeader showMenu={showMenu} setShowMenu={setShowMenu} />
-      <Layout showMenu={showMenu} setShowMenu={setShowMenu}/>
-      <Dashboard />
+      <Layout showMenu={showMenu} setShowMenu={setShowMenu} />
+      <div className="flex items-center h-[100vh] overflow-hidden">
+        <MenuDxtp />
+        <Dashboard />
+      </div>
     </>
   );
 }
